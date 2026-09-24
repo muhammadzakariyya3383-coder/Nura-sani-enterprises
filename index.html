@@ -1,0 +1,3047 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<meta name="theme-color" content="#0f766e">
+<title>Nura Sani Enterprises — V20.0</title>
+
+<style>
+:root{
+  --primary:#0f766e;
+  --primary-dark:#115e59;
+  --secondary:#14b8a6;
+  --bg:#f4f7f7;
+  --card:#fff;
+  --text:#17202a;
+  --muted:#6b7280;
+  --border:#e5e7eb;
+  --danger:#dc2626;
+  --warning:#d97706;
+  --success:#16a34a;
+  --shadow:0 8px 25px rgba(15,118,110,.08);
+  --radius:14px;
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;font-family:Inter,Arial,sans-serif;background:var(--bg);color:var(--text)}
+button,input,select,textarea{font:inherit}
+button{cursor:pointer}
+.hidden{display:none!important}
+
+.login-screen{
+  min-height:100vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:20px;
+  background:
+    radial-gradient(circle at top left,rgba(20,184,166,.2),transparent 35%),
+    linear-gradient(135deg,#f0fdfa,#ecfeff);
+}
+.login-box{
+  width:100%;
+  max-width:430px;
+  background:white;
+  padding:35px;
+  border-radius:24px;
+  box-shadow:0 25px 70px rgba(0,0,0,.12);
+}
+.logo{
+  width:65px;height:65px;border-radius:18px;
+  background:linear-gradient(135deg,var(--primary),var(--secondary));
+  color:white;display:flex;align-items:center;justify-content:center;
+  font-size:25px;font-weight:900;margin-bottom:18px;
+}
+.login-box h1{margin:0 0 5px}
+.login-box p{color:var(--muted);margin-bottom:25px}
+
+.app{display:none;min-height:100vh}
+.app.active{display:flex}
+
+.sidebar{
+  width:270px;
+  background:#102a2a;
+  color:white;
+  min-height:100vh;
+  position:fixed;
+  left:0;top:0;bottom:0;
+  overflow-y:auto;
+  z-index:1000;
+}
+.brand{
+  padding:22px 20px;
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.brand strong{display:block;font-size:17px}
+.brand small{color:#9cc7c3}
+.nav{padding:14px}
+.nav-section{
+  font-size:10px;
+  color:#82aaa6;
+  text-transform:uppercase;
+  letter-spacing:1px;
+  margin:18px 10px 7px;
+}
+.nav button{
+  width:100%;
+  text-align:left;
+  border:0;
+  background:transparent;
+  color:#d9eeee;
+  padding:11px 12px;
+  border-radius:9px;
+  margin-bottom:3px;
+}
+.nav button:hover,.nav button.active{
+  background:rgba(20,184,166,.18);
+  color:white;
+}
+.sidebar-footer{
+  padding:15px;
+  border-top:1px solid rgba(255,255,255,.08);
+  margin-top:10px;
+}
+.logout{
+  width:100%;
+  border:0;
+  background:#7f1d1d;
+  color:white;
+  padding:11px;
+  border-radius:9px;
+}
+
+.main{
+  margin-left:270px;
+  width:calc(100% - 270px);
+  min-height:100vh;
+}
+.topbar{
+  height:72px;
+  background:white;
+  border-bottom:1px solid var(--border);
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  padding:0 25px;
+  position:sticky;
+  top:0;
+  z-index:500;
+}
+.topbar-left{display:flex;align-items:center;gap:12px}
+.menu-mobile{display:none}
+.page-title{font-size:19px;font-weight:800}
+.user-pill{
+  display:flex;align-items:center;gap:9px;
+  color:var(--muted);font-size:13px;
+}
+.avatar{
+  width:36px;height:36px;border-radius:50%;
+  background:#ccfbf1;color:var(--primary);
+  display:flex;align-items:center;justify-content:center;font-weight:800;
+}
+
+.content{padding:25px;max-width:1800px;margin:auto}
+
+.grid{
+  display:grid;
+  gap:18px;
+}
+.grid-2{grid-template-columns:repeat(2,minmax(0,1fr))}
+.grid-3{grid-template-columns:repeat(3,minmax(0,1fr))}
+.grid-4{grid-template-columns:repeat(4,minmax(0,1fr))}
+.stats{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:15px}
+
+.card{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  padding:19px;
+  box-shadow:var(--shadow);
+}
+.card h3{margin:0 0 15px;font-size:15px}
+.stat-label{font-size:12px;color:var(--muted)}
+.stat-value{font-size:25px;font-weight:850;margin-top:7px}
+.stat-icon{
+  float:right;width:38px;height:38px;border-radius:10px;
+  display:flex;align-items:center;justify-content:center;
+  background:#ccfbf1;color:var(--primary);font-weight:900;
+}
+
+.section-head{
+  display:flex;justify-content:space-between;align-items:center;
+  gap:12px;margin:5px 0 18px;
+}
+.section-head h2{margin:0;font-size:21px}
+
+.btn{
+  border:0;border-radius:9px;padding:10px 14px;
+  background:var(--primary);color:white;font-weight:700;
+}
+.btn:hover{background:var(--primary-dark)}
+.btn.secondary{background:#e6fffb;color:var(--primary)}
+.btn.dark{background:#1f2937}
+.btn.danger{background:var(--danger)}
+.btn.warning{background:var(--warning)}
+.btn.success{background:var(--success)}
+.btn.small{padding:7px 10px;font-size:12px}
+
+.form-grid{
+  display:grid;
+  grid-template-columns:repeat(2,minmax(0,1fr));
+  gap:13px;
+}
+.field label{
+  display:block;font-size:12px;font-weight:700;
+  color:#475569;margin-bottom:6px;
+}
+.field input,.field select,.field textarea{
+  width:100%;padding:11px 12px;
+  border:1px solid #d8dee4;border-radius:9px;
+  outline:none;background:white;
+}
+.field input:focus,.field select:focus,.field textarea:focus{
+  border-color:var(--secondary);
+  box-shadow:0 0 0 3px rgba(20,184,166,.12);
+}
+.field textarea{min-height:90px;resize:vertical}
+.full{grid-column:1/-1}
+
+.form-actions{
+  margin-top:16px;display:flex;gap:8px;justify-content:flex-end;
+}
+
+.table-wrap{overflow-x:auto}
+table{width:100%;border-collapse:collapse;min-width:700px}
+th,td{
+  text-align:left;padding:12px 10px;
+  border-bottom:1px solid var(--border);
+  font-size:13px;
+}
+th{font-size:11px;text-transform:uppercase;color:var(--muted)}
+tr:hover td{background:#f8fafb}
+
+.badge{
+  display:inline-block;padding:5px 8px;border-radius:999px;
+  font-size:10px;font-weight:800;
+}
+.badge.green{background:#dcfce7;color:#166534}
+.badge.orange{background:#ffedd5;color:#9a3412}
+.badge.red{background:#fee2e2;color:#991b1b}
+.badge.blue{background:#dbeafe;color:#1e40af}
+.badge.gray{background:#f1f5f9;color:#475569}
+
+.progress{
+  height:9px;background:#e5e7eb;border-radius:20px;overflow:hidden;
+}
+.progress span{
+  display:block;height:100%;background:var(--secondary);
+}
+
+.timeline{border-left:2px solid #d1fae5;padding-left:20px}
+.timeline-item{position:relative;margin-bottom:18px}
+.timeline-item:before{
+  content:"";position:absolute;left:-27px;top:3px;
+  width:10px;height:10px;border-radius:50%;
+  background:var(--secondary);
+}
+.timeline-item small{color:var(--muted)}
+
+.empty{
+  padding:35px;text-align:center;color:var(--muted);
+}
+.kpi-note{font-size:11px;color:var(--muted);margin-top:5px}
+
+.search-row{
+  display:flex;gap:10px;flex-wrap:wrap;margin-bottom:15px;
+}
+.search-row input,.search-row select{
+  padding:10px;border:1px solid var(--border);
+  border-radius:9px;background:white;
+}
+
+.toast{
+  position:fixed;right:20px;bottom:20px;
+  background:#102a2a;color:white;
+  padding:13px 18px;border-radius:10px;
+  box-shadow:0 15px 40px rgba(0,0,0,.2);
+  z-index:5000;display:none;
+}
+.toast.show{display:block}
+
+.modal{
+  position:fixed;inset:0;background:rgba(0,0,0,.5);
+  display:none;align-items:center;justify-content:center;
+  z-index:3000;padding:20px;
+}
+.modal.show{display:flex}
+.modal-box{
+  background:white;width:100%;max-width:760px;
+  max-height:90vh;overflow:auto;border-radius:18px;padding:22px;
+}
+.modal-head{
+  display:flex;justify-content:space-between;align-items:center;
+  margin-bottom:18px;
+}
+.close{
+  border:0;background:#f1f5f9;width:35px;height:35px;
+  border-radius:50%;
+}
+
+.workflow{
+  display:grid;grid-template-columns:repeat(6,1fr);
+  gap:8px;
+}
+.workflow-item{
+  padding:13px 8px;text-align:center;
+  background:#f8fafc;border-radius:9px;font-size:11px;
+}
+.workflow-item.done{background:#ccfbf1;color:#115e59}
+.workflow-item.active{background:#dbeafe;color:#1e40af}
+
+@media(max-width:1100px){
+  .stats{grid-template-columns:repeat(3,1fr)}
+  .grid-4{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:800px){
+  .sidebar{
+    transform:translateX(-100%);
+    transition:.25s;
+  }
+  .sidebar.open{transform:translateX(0)}
+  .main{
+    margin-left:0;width:100%;
+  }
+  .menu-mobile{
+    display:block;border:0;background:#f1f5f9;
+    width:40px;height:40px;border-radius:9px;
+  }
+  .stats{grid-template-columns:repeat(2,1fr)}
+  .grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+  .form-grid{grid-template-columns:1fr}
+  .workflow{grid-template-columns:repeat(3,1fr)}
+  .content{padding:16px}
+  .topbar{padding:0 15px}
+}
+@media(max-width:480px){
+  .stats{grid-template-columns:1fr}
+  .workflow{grid-template-columns:repeat(2,1fr)}
+  .login-box{padding:25px}
+}
+</style>
+</head>
+
+<body>
+
+<!-- LOGIN -->
+<div id="loginScreen" class="login-screen">
+  <div class="login-box">
+    <div class="logo">NS</div>
+    <h1>Nura Sani Enterprises</h1>
+    <p>V20.0 Business Management Platform</p>
+
+    <form id="loginForm">
+      <div class="field">
+        <label>Username</label>
+        <input id="loginUser" value="admin" autocomplete="username">
+      </div>
+
+      <div class="field" style="margin-top:13px">
+        <label>Password</label>
+        <input id="loginPass" type="password" value="admin123" autocomplete="current-password">
+      </div>
+
+      <button class="btn" style="width:100%;margin-top:18px">
+        Sign In
+      </button>
+    </form>
+
+    <div style="margin-top:18px;font-size:11px;color:#64748b">
+      Demo account: admin / admin123
+    </div>
+  </div>
+</div>
+
+<!-- APPLICATION -->
+<div id="app" class="app">
+
+  <aside id="sidebar" class="sidebar">
+
+    <div class="brand">
+      <strong>NURA SANI ENTERPRISES</strong>
+      <small>V20.0 Business Platform</small>
+    </div>
+
+    <div class="nav">
+
+      <div class="nav-section">Overview</div>
+      <button data-page="dashboard">Dashboard</button>
+
+      <div class="nav-section">Customers & Sales</div>
+      <button data-page="customers">Customers</button>
+      <button data-page="schools">Schools & Groups</button>
+      <button data-page="orders">Orders</button>
+      <button data-page="students">Students</button>
+      <button data-page="products">Products</button>
+
+      <div class="nav-section">Production</div>
+      <button data-page="designs">Designs</button>
+      <button data-page="production">Production</button>
+      <button data-page="quality">Quality Control</button>
+      <button data-page="inventory">Inventory</button>
+      <button data-page="deliveries">Deliveries</button>
+
+      <div class="nav-section">Finance</div>
+      <button data-page="payments">Payments</button>
+      <button data-page="expenses">Expenses</button>
+      <button data-page="reports">Reports & Analytics</button>
+
+      <div class="nav-section">Administration</div>
+      <button data-page="staff">Staff</button>
+      <button data-page="tasks">Tasks</button>
+      <button data-page="audit">Audit History</button>
+      <button data-page="settings">Settings</button>
+
+      <div class="nav-section">Platform</div>
+      <button data-page="architecture">V20 Architecture</button>
+
+    </div>
+
+    <div class="sidebar-footer">
+      <button class="logout" onclick="logout()">Sign Out</button>
+    </div>
+  </aside>
+
+  <main class="main">
+
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="menu-mobile" onclick="toggleSidebar()">☰</button>
+        <div id="pageTitle" class="page-title">Dashboard</div>
+      </div>
+
+      <div class="user-pill">
+        <span>Administrator</span>
+        <div class="avatar">A</div>
+      </div>
+    </header>
+
+    <section id="content" class="content"></section>
+
+  </main>
+</div>
+
+<div id="toast" class="toast"></div>
+
+<!-- MODAL -->
+<div id="modal" class="modal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <h3 id="modalTitle">Form</h3>
+      <button class="close" onclick="closeModal()">×</button>
+    </div>
+    <div id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+"use strict";
+
+/* =========================================================
+   NURA SANI ENTERPRISES V20.0
+   FOUNDATION PROTOTYPE
+   ========================================================= */
+
+const DB_KEY = "NURA_SANI_ENTERPRISES_V20_DATABASE";
+
+const defaultDB = {
+  version:"20.0.1",
+  business:{
+    name:"Nura Sani Enterprises",
+    phone:"",
+    email:"",
+    address:"",
+    currency:"₦"
+  },
+
+  customers:[],
+  schools:[],
+  products:[
+    {id:"P001",name:"Jersey",category:"Apparel",cost:5000,price:8500,stock:0,minStock:20},
+    {id:"P002",name:"T-Shirt",category:"Apparel",cost:3000,price:5500,stock:0,minStock:20},
+    {id:"P003",name:"Polo",category:"Apparel",cost:4500,price:7500,stock:0,minStock:20},
+    {id:"P004",name:"Hoodie",category:"Apparel",cost:7000,price:12000,stock:0,minStock:10},
+    {id:"P005",name:"Custom Print",category:"Printing",cost:1000,price:2500,stock:0,minStock:20}
+  ],
+
+  orders:[],
+  students:[],
+  designs:[],
+  production:[],
+  quality:[],
+  inventory:[],
+  payments:[],
+  expenses:[],
+  deliveries:[],
+  staff:[
+    {
+      id:"ST001",
+      name:"Administrator",
+      role:"Admin",
+      phone:"",
+      status:"Active"
+    }
+  ],
+  tasks:[],
+  audit:[],
+  settings:{
+    numberingPrefix:"NSE",
+    tax:0,
+    lowStockAlert:true
+  }
+};
+
+let db = loadDB();
+let currentPage = "dashboard";
+
+function clone(obj){
+  return JSON.parse(JSON.stringify(obj));
+}
+
+function loadDB(){
+  try{
+    const raw = localStorage.getItem(DB_KEY);
+    if(!raw){
+      localStorage.setItem(DB_KEY,JSON.stringify(defaultDB));
+      return clone(defaultDB);
+    }
+    return JSON.parse(raw);
+  }catch(e){
+    console.error(e);
+    return clone(defaultDB);
+  }
+}
+
+function saveDB(){
+  localStorage.setItem(DB_KEY,JSON.stringify(db));
+}
+
+function uid(prefix){
+  return prefix + Date.now().toString(36) + Math.random().toString(36).slice(2,6);
+}
+
+function money(value){
+  return (db.business.currency || "₦") +
+    Number(value || 0).toLocaleString("en-NG",{minimumFractionDigits:2});
+}
+
+function esc(value){
+  return String(value ?? "")
+    .replace(/&/g,"&amp;")
+    .replace(/</g,"&lt;")
+    .replace(/>/g,"&gt;")
+    .replace(/"/g,"&quot;")
+    .replace(/'/g,"&#039;");
+}
+
+function toast(message){
+  const el=document.getElementById("toast");
+  el.textContent=message;
+  el.classList.add("show");
+  setTimeout(()=>el.classList.remove("show"),2500);
+}
+
+function audit(action,details=""){
+  db.audit.unshift({
+    id:uid("AUD"),
+    date:new Date().toISOString(),
+    user:"admin",
+    action,
+    details
+  });
+  db.audit=db.audit.slice(0,1000);
+  saveDB();
+}
+
+function today(){
+  return new Date().toISOString().slice(0,10);
+}
+
+function nextOrderNumber(){
+  const year=new Date().getFullYear();
+  const count=db.orders.length+1;
+  return `${db.settings.numberingPrefix}-${year}-${String(count).padStart(5,"0")}`;
+}
+
+/* =========================================================
+   LOGIN
+   ========================================================= */
+
+document.getElementById("loginForm").addEventListener("submit",function(e){
+  e.preventDefault();
+
+  const user=document.getElementById("loginUser").value.trim();
+  const pass=document.getElementById("loginPass").value;
+
+  if(user==="admin" && pass==="admin123"){
+    document.getElementById("loginScreen").style.display="none";
+    document.getElementById("app").classList.add("active");
+    audit("LOGIN","Administrator signed in");
+    navigate("dashboard");
+  }else{
+    toast("Invalid login credentials");
+  }
+});
+
+function logout(){
+  audit("LOGOUT","Administrator signed out");
+  document.getElementById("app").classList.remove("active");
+  document.getElementById("loginScreen").style.display="flex";
+}
+
+/* =========================================================
+   NAVIGATION
+   ========================================================= */
+
+const pageNames={
+  dashboard:"Dashboard",
+  customers:"Customers",
+  schools:"Schools & Groups",
+  orders:"Orders",
+  students:"Students",
+  products:"Products",
+  designs:"Designs",
+  production:"Production",
+  quality:"Quality Control",
+  inventory:"Inventory",
+  deliveries:"Deliveries",
+  payments:"Payments",
+  expenses:"Expenses",
+  reports:"Reports & Analytics",
+  staff:"Staff",
+  tasks:"Tasks",
+  audit:"Audit History",
+  settings:"Settings",
+  architecture:"V20 Architecture"
+};
+
+document.querySelectorAll(".nav button[data-page]").forEach(btn=>{
+  btn.addEventListener("click",()=>navigate(btn.dataset.page));
+});
+
+function navigate(page){
+  currentPage=page;
+
+  document.querySelectorAll(".nav button").forEach(b=>{
+    b.classList.toggle("active",b.dataset.page===page);
+  });
+
+  document.getElementById("pageTitle").textContent=pageNames[page] || page;
+
+  const fn=pages[page];
+  if(fn) fn();
+
+  document.getElementById("sidebar").classList.remove("open");
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+
+function toggleSidebar(){
+  document.getElementById("sidebar").classList.toggle("open");
+}
+
+/* =========================================================
+   DASHBOARD
+   ========================================================= */
+
+function dashboardStats(){
+  const revenue=db.payments.reduce((s,p)=>s+Number(p.amount||0),0);
+  const expenses=db.expenses.reduce((s,e)=>s+Number(e.amount||0),0);
+
+  const outstanding=db.orders.reduce((s,o)=>{
+    return s + Math.max(0,Number(o.total||0)-Number(o.paid||0));
+  },0);
+
+  return {revenue,expenses,outstanding,profit:revenue-expenses};
+}
+
+function pagesDashboard(){
+  const s=dashboardStats();
+
+  const orders=db.orders.length;
+  const active=db.orders.filter(o=>!["Delivered","Cancelled"].includes(o.status)).length;
+  const ready=db.orders.filter(o=>o.status==="Ready").length;
+
+  document.getElementById("content").innerHTML=`
+    <div class="section-head">
+      <div>
+        <h2>Business Overview</h2>
+        <div class="kpi-note">Nura Sani Enterprises • V20.0 Foundation</div>
+      </div>
+      <button class="btn" onclick="openOrderForm()">+ New Order</button>
+    </div>
+
+    <div class="stats">
+      ${stat("Orders",orders,"ORD")}
+      ${stat("Revenue",money(s.revenue),"₦")}
+      ${stat("Outstanding",money(s.outstanding),"BAL")}
+      ${stat("Expenses",money(s.expenses),"EXP")}
+      ${stat("Profit",money(s.profit),"P")}
+    </div>
+
+    <div style="height:18px"></div>
+
+    <div class="grid grid-3">
+
+      <div class="card">
+        <h3>Order Pipeline</h3>
+        ${pipeline("Pending")}
+        ${pipeline("Designing")}
+        ${pipeline("Printing")}
+        ${pipeline("Production")}
+        ${pipeline("QC")}
+        ${pipeline("Ready")}
+        ${pipeline("Delivered")}
+      </div>
+
+      <div class="card">
+        <h3>Production Overview</h3>
+        <div style="font-size:13px;margin-bottom:10px">
+          Active production
+          <strong style="float:right">${db.production.length}</strong>
+        </div>
+        <div style="font-size:13px;margin-bottom:10px">
+          Ready orders
+          <strong style="float:right">${ready}</strong>
+        </div>
+        <div style="font-size:13px;margin-bottom:10px">
+          Active orders
+          <strong style="float:right">${active}</strong>
+        </div>
+        <div style="margin-top:20px">
+          <div class="stat-label">Production progress</div>
+          <div class="progress" style="margin-top:8px">
+            <span style="width:${productionProgress()}%"></span>
+          </div>
+          <div class="kpi-note">${productionProgress()}% estimated completion</div>
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>Business Alerts</h3>
+        ${alertsHTML()}
+      </div>
+
+    </div>
+
+    <div style="height:18px"></div>
+
+    <div class="grid grid-2">
+
+      <div class="card">
+        <div class="section-head">
+          <h3>Recent Orders</h3>
+          <button class="btn secondary small" onclick="navigate('orders')">View All</button>
+        </div>
+
+        ${recentOrdersHTML()}
+      </div>
+
+      <div class="card">
+        <div class="section-head">
+          <h3>Recent Activity</h3>
+          <button class="btn secondary small" onclick="navigate('audit')">Audit</button>
+        </div>
+
+        ${recentAuditHTML()}
+      </div>
+
+    </div>
+  `;
+}
+
+function stat(label,value,icon){
+  return `
+    <div class="card">
+      <div class="stat-icon">${icon}</div>
+      <div class="stat-label">${label}</div>
+      <div class="stat-value">${value}</div>
+    </div>
+  `;
+}
+
+function pipeline(status){
+  const count=db.orders.filter(o=>o.status===status).length;
+  return `
+    <div style="display:flex;justify-content:space-between;
+      padding:7px 0;border-bottom:1px solid #f1f5f9;font-size:12px">
+      <span>${status}</span><strong>${count}</strong>
+    </div>
+  `;
+}
+
+function productionProgress(){
+  if(!db.production.length)return 0;
+  const total=db.production.reduce((s,p)=>s+Number(p.quantity||0),0);
+  const done=db.production.reduce((s,p)=>s+Number(p.completed||0),0);
+  if(!total)return 0;
+  return Math.min(100,Math.round(done/total*100));
+}
+
+function alertsHTML(){
+  const low=db.products.filter(p=>Number(p.stock||0)<=Number(p.minStock||0));
+
+  if(!low.length){
+    return `<div class="empty">No critical alerts.</div>`;
+  }
+
+  return low.slice(0,5).map(p=>`
+    <div style="padding:9px 0;border-bottom:1px solid #f1f5f9">
+      <span class="badge orange">LOW STOCK</span>
+      <div style="font-size:13px;margin-top:5px">${esc(p.name)}</div>
+      <small>${p.stock} available</small>
+    </div>
+  `).join("");
+}
+
+function recentOrdersHTML(){
+  if(!db.orders.length)return `<div class="empty">No orders yet.</div>`;
+
+  return `
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Order</th><th>Customer</th><th>Total</th><th>Status</th>
+        </tr></thead>
+        <tbody>
+          ${db.orders.slice(0,7).map(o=>`
+            <tr>
+              <td>${esc(o.number)}</td>
+              <td>${esc(o.customer)}</td>
+              <td>${money(o.total)}</td>
+              <td>${statusBadge(o.status)}</td>
+            </tr>
+          `).join("")}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+function recentAuditHTML(){
+  if(!db.audit.length)return `<div class="empty">No activity.</div>`;
+
+  return db.audit.slice(0,8).map(a=>`
+    <div style="padding:9px 0;border-bottom:1px solid #f1f5f9">
+      <strong style="font-size:12px">${esc(a.action)}</strong>
+      <div style="font-size:12px;color:#64748b">${esc(a.details)}</div>
+      <small style="color:#94a3b8">${new Date(a.date).toLocaleString()}</small>
+    </div>
+  `).join("");
+}
+
+function statusBadge(status){
+  const cls={
+    Pending:"orange",
+    Designing:"blue",
+    Printing:"blue",
+    Production:"blue",
+    QC:"orange",
+    Ready:"green",
+    Delivered:"green",
+    Cancelled:"red"
+  }[status] || "gray";
+
+  return `<span class="badge ${cls}">${esc(status)}</span>`;
+}
+
+/* =========================================================
+   CUSTOMERS
+   ========================================================= */
+
+function pagesCustomers(){
+  document.getElementById("content").innerHTML=`
+    <div class="section-head">
+      <h2>Customers</h2>
+      <button class="btn" onclick="openCustomerForm()">+ Add Customer</button>
+    </div>
+
+    <div class="card">
+      <div class="search-row">
+        <input id="customerSearch" placeholder="Search customers..." oninput="renderCustomersTable()">
+      </div>
+      <div id="customersTable"></div>
+    </div>
+  `;
+
+  renderCustomersTable();
+}
+
+function renderCustomersTable(){
+  const q=(document.getElementById("customerSearch")?.value||"").toLowerCase();
+
+  const rows=db.customers.filter(c=>
+    [c.name,c.phone,c.email,c.type].join(" ").toLowerCase().includes(q)
+  );
+
+  document.getElementById("customersTable").innerHTML=rows.length ? `
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Name</th><th>Type</th><th>Phone</th><th>Orders</th><th>Balance</th><th>Action</th>
+        </tr></thead>
+        <tbody>
+        ${rows.map(c=>{
+          const orders=db.orders.filter(o=>o.customerId===c.id);
+          const balance=orders.reduce((s,o)=>s+Math.max(0,Number(o.total)-Number(o.paid||0)),0);
+
+          return `
+            <tr>
+              <td><strong>${esc(c.name)}</strong></td>
+              <td>${esc(c.type||"Individual")}</td>
+              <td>${esc(c.phone)}</td>
+              <td>${orders.length}</td>
+              <td>${money(balance)}</td>
+              <td>
+                <button class="btn small danger" onclick="deleteCustomer('${c.id}')">Delete</button>
+              </td>
+            </tr>
+          `;
+        }).join("")}
+        </tbody>
+      </table>
+    </div>
+  `:`<div class="empty">No customers found.</div>`;
+}
+
+function openCustomerForm(){
+  showModal("Add Customer",`
+    <form onsubmit="saveCustomer(event)">
+      <div class="form-grid">
+        <div class="field">
+          <label>Customer Name *</label>
+          <input name="name" required>
+        </div>
+        <div class="field">
+          <label>Customer Type</label>
+          <select name="type">
+            <option>Individual</option>
+            <option>School</option>
+            <option>Class/Group</option>
+            <option>Organization</option>
+            <option>Business</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Phone</label>
+          <input name="phone">
+        </div>
+        <div class="field">
+          <label>Email</label>
+          <input name="email" type="email">
+        </div>
+        <div class="field full">
+          <label>Address</label>
+          <textarea name="address"></textarea>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn">Save Customer</button>
+      </div>
+    </form>
+  `);
+}
+
+function saveCustomer(e){
+  e.preventDefault();
+  const f=new FormData(e.target);
+
+  const c={
+    id:uid("CUS"),
+    name:f.get("name"),
+    type:f.get("type"),
+    phone:f.get("phone"),
+    email:f.get("email"),
+    address:f.get("address"),
+    createdAt:new Date().toISOString()
+  };
+
+  db.customers.unshift(c);
+  audit("CUSTOMER_CREATED",c.name);
+  saveDB();
+  closeModal();
+  renderCustomersTable();
+  toast("Customer added");
+}
+
+function deleteCustomer(id){
+  const c=db.customers.find(x=>x.id===id);
+  if(!c)return;
+
+  if(!confirm("Delete this customer?"))return;
+
+  db.customers=db.customers.filter(x=>x.id!==id);
+  audit("CUSTOMER_DELETED",c.name);
+  saveDB();
+  renderCustomersTable();
+}
+
+/* =========================================================
+   SCHOOLS
+   ========================================================= */
+
+function pagesSchools(){
+  document.getElementById("content").innerHTML=`
+    <div class="section-head">
+      <h2>Schools & Groups</h2>
+      <button class="btn" onclick="openSchoolForm()">+ Add School/Group</button>
+    </div>
+
+    <div class="card">
+      <div id="schoolsTable"></div>
+    </div>
+  `;
+
+  renderSchools();
+}
+
+function renderSchools(){
+  const el=document.getElementById("schoolsTable");
+
+  if(!db.schools.length){
+    el.innerHTML=`<div class="empty">No schools or groups added.</div>`;
+    return;
+  }
+
+  el.innerHTML=`
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>School/Group</th><th>Class</th><th>Contact</th><th>Students</th><th>Action</th>
+        </tr></thead>
+        <tbody>
+        ${db.schools.map(s=>`
+          <tr>
+            <td><strong>${esc(s.name)}</strong></td>
+            <td>${esc(s.className)}</td>
+            <td>${esc(s.contact)}</td>
+            <td>${db.students.filter(x=>x.schoolId===s.id).length}</td>
+            <td><button class="btn small danger" onclick="deleteSchool('${s.id}')">Delete</button></td>
+          </tr>
+        `).join("")}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+function openSchoolForm(){
+  showModal("Add School / Group",`
+    <form onsubmit="saveSchool(event)">
+      <div class="form-grid">
+        <div class="field">
+          <label>School / Group Name *</label>
+          <input name="name" required>
+        </div>
+        <div class="field">
+          <label>Class / Group</label>
+          <input name="className">
+        </div>
+        <div class="field">
+          <label>Contact Person</label>
+          <input name="contact">
+        </div>
+        <div class="field">
+          <label>Phone</label>
+          <input name="phone">
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn">Save</button>
+      </div>
+    </form>
+  `);
+}
+
+function saveSchool(e){
+  e.preventDefault();
+  const f=new FormData(e.target);
+
+  db.schools.unshift({
+    id:uid("SCH"),
+    name:f.get("name"),
+    className:f.get("className"),
+    contact:f.get("contact"),
+    phone:f.get("phone")
+  });
+
+  audit("SCHOOL_CREATED",f.get("name"));
+  saveDB();
+  closeModal();
+  renderSchools();
+  toast("School/group added");
+}
+
+function deleteSchool(id){
+  if(!confirm("Delete this school/group?"))return;
+  db.schools=db.schools.filter(x=>x.id!==id);
+  audit("SCHOOL_DELETED",id);
+  saveDB();
+  renderSchools();
+}
+
+/* =========================================================
+   ORDERS
+   ========================================================= */
+
+function pagesOrders(){
+  document.getElementById("content").innerHTML=`
+    <div class="section-head">
+      <h2>Orders</h2>
+      <button class="btn" onclick="openOrderForm()">+ New Order</button>
+    </div>
+
+    <div class="card">
+      <div class="search-row">
+        <input id="orderSearch" placeholder="Search order/customer..." oninput="renderOrders()">
+        <select id="orderStatusFilter" onchange="renderOrders()">
+          <option value="">All Statuses</option>
+          <option>Pending</option>
+          <option>Designing</option>
+          <option>Printing</option>
+          <option>Production</option>
+          <option>QC</option>
+          <option>Ready</option>
+          <option>Delivered</option>
+          <option>Cancelled</option>
+        </select>
+      </div>
+      <div id="ordersTable"></div>
+    </div>
+  `;
+
+  renderOrders();
+}
+
+function renderOrders(){
+  const q=(document.getElementById("orderSearch")?.value||"").toLowerCase();
+  const sf=document.getElementById("orderStatusFilter")?.value||"";
+
+  const rows=db.orders.filter(o=>{
+    const match=[o.number,o.customer,o.product].join(" ").toLowerCase().includes(q);
+    const status=!sf||o.status===sf;
+    return match&&status;
+  });
+
+  document.getElementById("ordersTable").innerHTML=rows.length?`
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Order</th>
+          <th>Customer</th>
+          <th>Product</th>
+          <th>Qty</th>
+          <th>Total</th>
+          <th>Paid</th>
+          <th>Balance</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr></thead>
+        <tbody>
+        ${rows.map(o=>`
+          <tr>
+            <td><strong>${esc(o.number)}</strong></td>
+            <td>${esc(o.customer)}</td>
+            <td>${esc(o.product)}</td>
+            <td>${o.quantity}</td>
+            <td>${money(o.total)}</td>
+            <td>${money(o.paid)}</td>
+            <td>${money(Math.max(0,o.total-o.paid))}</td>
+            <td>${statusBadge(o.status)}</td>
+            <td>
+              <button class="btn small" onclick="viewOrder('${o.id}')">View</button>
+            </td>
+          </tr>
+        `).join("")}
+        </tbody>
+      </table>
+    </div>
+  `:`<div class="empty">No orders found.</div>`;
+}
+
+function openOrderForm(){
+  const customers=db.customers;
+
+  showModal("Create New Order",`
+    <form onsubmit="saveOrder(event)">
+      <div class="form-grid">
+
+        <div class="field">
+          <label>Customer *</label>
+          <select name="customerId" required>
+            <option value="">Select customer</option>
+            ${customers.map(c=>`<option value="${c.id}">${esc(c.name)}</option>`).join("")}
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Product *</label>
+          <select name="productId" id="orderProduct" required onchange="updateOrderPrice()">
+            <option value="">Select product</option>
+            ${db.products.map(p=>`
+              <option value="${p.id}" data-price="${p.price}">
+                ${esc(p.name)} — ${money(p.price)}
+              </option>
+            `).join("")}
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Quantity *</label>
+          <input name="quantity" id="orderQty" type="number" min="1" value="1" required oninput="updateOrderTotal()">
+        </div>
+
+        <div class="field">
+          <label>Unit Price</label>
+          <input name="unitPrice" id="orderPrice" type="number" min="0" value="0" oninput="updateOrderTotal()">
+        </div>
+
+        <div class="field">
+          <label>Discount</label>
+          <input name="discount" id="orderDiscount" type="number" min="0" value="0" oninput="updateOrderTotal()">
+        </div>
+
+        <div class="field">
+          <label>Deposit</label>
+          <input name="deposit" id="orderDeposit" type="number" min="0" value="0">
+        </div>
+
+        <div class="field">
+          <label>Deadline</label>
+          <input name="deadline" type="date">
+        </div>
+
+        <div class="field">
+          <label>Priority</label>
+          <select name="priority">
+            <option>Normal</option>
+            <option>High</option>
+            <option>Urgent</option>
+          </select>
+        </div>
+
+        <div class="field full">
+          <label>Notes</label>
+          <textarea name="notes"></textarea>
+        </div>
+
+        <div class="field full">
+          <label>Calculated Total</label>
+          <input id="orderTotalPreview" readonly value="${money(0)}">
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+        <button type="button" class="btn secondary" onclick="closeModal()">Cancel</button>
+        <button class="btn">Create Order</button>
+      </div>
+    </form>
+  `);
+}
+
+function updateOrderPrice(){
+  const select=document.getElementById("orderProduct");
+  const opt=select?.options[select.selectedIndex];
+  if(opt){
+    document.getElementById("orderPrice").value=opt.dataset.price||0;
+    updateOrderTotal();
+  }
+}
+
+function updateOrderTotal(){
+  const qty=Number(document.getElementById("orderQty")?.value||0);
+  const price=Number(document.getElementById("orderPrice")?.value||0);
+  const discount=Number(document.getElementById("orderDiscount")?.value||0);
+  const total=Math.max(0,qty*price-discount);
+  const el=document.getElementById("orderTotalPreview");
+  if(el)el.value=money(total);
+}
+
+function saveOrder(e){
+  e.preventDefault();
+  const f=new FormData(e.target);
+
+  const customer=db.customers.find(c=>c.id===f.get("customerId"));
+  const product=db.products.find(p=>p.id===f.get("productId"));
+
+  if(!customer||!product){
+    toast("Select customer and product");
+    return;
+  }
+
+  const qty=Number(f.get("quantity"));
+  const price=Number(f.get("unitPrice"));
+  const discount=Number(f.get("discount")||0);
+  const total=Math.max(0,qty*price-discount);
+  const deposit=Number(f.get("deposit")||0);
+
+  const order={
+    id:uid("ORD"),
+    number:nextOrderNumber(),
+    customerId:customer.id,
+    customer:customer.name,
+    productId:product.id,
+    product:product.name,
+    quantity:qty,
+    unitPrice:price,
+    discount,
+    total,
+    paid:Math.min(deposit,total),
+    deadline:f.get("deadline"),
+    priority:f.get("priority"),
+    notes:f.get("notes"),
+    status:"Pending",
+    createdAt:new Date().toISOString()
+  };
+
+  db.orders.unshift(order);
+
+  if(deposit>0){
+    db.payments.unshift({
+      id:uid("PAY"),
+      orderId:order.id,
+      orderNumber:order.number,
+      customerId:customer.id,
+      customer:customer.name,
+      amount:Math.min(deposit,total),
+      method:"Cash",
+      reference:"",
+      date:today(),
+      note:"Initial deposit"
+    });
+  }
+
+  audit("ORDER_CREATED",order.number);
+  saveDB();
+  closeModal();
+
+  if(currentPage==="orders")renderOrders();
+  toast(`Order ${order.number} created`);
+}
+
+function viewOrder(id){
+  const o=db.orders.find(x=>x.id===id);
+  if(!o)return;
+
+  const balance=Math.max(0,o.total-o.paid);
+  const students=db.students.filter(s=>s.orderId===id);
+  const production=db.production.find(p=>p.orderId===id);
+
+  showModal(`Order ${o.number}`,`
+    <div class="grid grid-2">
+
+      <div class="card">
+        <h3>Order Information</h3>
+        <p><strong>Customer:</strong> ${esc(o.customer)}</p>
+        <p><strong>Product:</strong> ${esc(o.product)}</p>
+        <p><strong>Quantity:</strong> ${o.quantity}</p>
+        <p><strong>Deadline:</strong> ${esc(o.deadline||"Not set")}</p>
+        <p><strong>Priority:</strong> ${esc(o.priority)}</p>
+        <p><strong>Status:</strong> ${statusBadge(o.status)}</p>
+      </div>
+
+      <div class="card">
+        <h3>Financial</h3>
+        <p>Total: <strong>${money(o.total)}</strong></p>
+        <p>Paid: <strong>${money(o.paid)}</strong></p>
+        <p>Balance: <strong>${money(balance)}</strong></p>
+        <button class="btn small" onclick="openPaymentForm('${o.id}')">Record Payment</button>
+      </div>
+
+    </div>
+
+    <div style="height:15px"></div>
+
+    <div class="card">
+      <h3>Workflow</h3>
+      <div class="workflow">
+        ${["Pending","Designing","Printing","Production","QC","Ready"].map(s=>`
+          <div class="workflow-item ${s===o.status?"active":""}">
+            ${s}
+          </div>
+        `).join("")}
+      </div>
+
+      <div style="margin-top:15px;display:flex;gap:8px;flex-wrap:wrap">
+        ${["Pending","Designing","Printing","Production","QC","Ready","Delivered"].map(s=>`
+          <button class="btn small ${s===o.status?"success":"secondary"}"
+            onclick="setOrderStatus('${o.id}','${s}')">${s}</button>
+        `).join("")}
+      </div>
+    </div>
+
+    <div style="height:15px"></div>
+
+    <div class="card">
+      <h3>Students / Jersey Names</h3>
+      <p>${students.length} student records linked to this order.</p>
+      <button class="btn small" onclick="closeModal();openStudentForm('${o.id}')">+ Add Student</button>
+    </div>
+
+    <div style="height:15px"></div>
+
+    <div class="card">
+      <h3>Production</h3>
+      ${
+        production ?
+        `<p>Completed: ${production.completed} / ${production.quantity}</p>
+         <div class="progress"><span style="width:${Math.min(100,production.completed/production.quantity*100)}%"></span></div>`:
+        `<p>No production record yet.</p>
+         <button class="btn small" onclick="createProduction('${o.id}')">Start Production</button>`
+      }
+    </div>
+  `);
+}
+
+function setOrderStatus(id,status){
+  const o=db.orders.find(x=>x.id===id);
+  if(!o)return;
+
+  o.status=status;
+  audit("ORDER_STATUS_CHANGED",`${o.number} → ${status}`);
+  saveDB();
+
+  closeModal();
+
+  if(currentPage==="orders")renderOrders();
+  else navigate(currentPage);
+
+  toast(`Order updated to ${status}`);
+}
+
+/* =========================================================
+   STUDENTS
+   ========================================================= */
+
+function pagesStudents(){
+  document.getElementById("content").innerHTML=`
+    <div class="section-head">
+      <h2>Student / Jersey List</h2>
+      <button class="btn" onclick="openStudentForm()">+ Add Student</button>
+    </div>
+
+    <div class="card">
+      <div class="search-row">
+        <input id="studentSearch" placeholder="Search name or number..." oninput="renderStudents()">
+      </div>
+      <div id="studentsTable"></div>
+    </div>
+  `;
+
+  renderStudents();
+}
+
+function renderStudents(){
+  const q=(document.getElementById("studentSearch")?.value||"").toLowerCase();
+
+  const rows=db.students.filter(s=>
+    [s.name,s.number,s.size,s.school].join(" ").toLowerCase().includes(q)
+  );
+
+  document.getElementById("studentsTable").innerHTML=rows.length?`
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Name</th><th>Number</th><th>Size</th><th>School</th><th>Order</th><th>Action</th>
+        </tr></thead>
+        <tbody>
+        ${rows.map(s=>`
+          <tr>
+            <td>${esc(s.name)}</td>
+            <td><strong>${esc(s.number)}</strong></td>
+            <td>${esc(s.size)}</td>
+            <td>${esc(s.school||"")}</td>
+            <td>${esc(s.orderNumber||"")}</td>
+            <td><button class="btn small danger" onclick="deleteStudent('${s.id}')">Delete</button></td>
+          </tr>
+        `).join("")}
+        </tbody>
+      </table>
+    </div>
+  `:`<div class="empty">No students found.</div>`;
+}
+
+function openStudentForm(orderId=""){
+  const orderOptions=db.orders.map(o=>
+    `<option value="${o.id}" ${o.id===orderId?"selected":""}>${esc(o.number)} — ${esc(o.customer)}</option>`
+  ).join("");
+
+  showModal("Add Student / Jersey Record",`
+    <form onsubmit="saveStudent(event)">
+      <div class="form-grid">
+
+        <div class="field">
+          <label>Order</label>
+          <select name="orderId">${orderOptions}</select>
+        </div>
+
+        <div class="field">
+          <label>Student Name *</label>
+          <input name="name" required>
+        </div>
+
+        <div class="field">
+          <label>Jersey Number</label>
+          <input name="number">
+        </div>
+
+        <div class="field">
+          <label>Size</label>
+          <select name="size">
+            <option>XS</option>
+            <option>S</option>
+            <option>M</option>
+            <option>L</option>
+            <option>XL</option>
+            <option>2XL</option>
+            <option>3XL</option>
+            <option>4XL</option>
+          </select>
+        </div>
+
+      </div>
+
+      <div class="form-actions">
+        <button class="btn">Save Student</button>
+      </div>
+    </form>
+  `);
+}
+
+function saveStudent(e){
+  e.preventDefault();
+  const f=new FormData(e.target);
+  const order=db.orders.find(o=>o.id===f.get("orderId"));
+
+  db.students.unshift({
+    id:uid("STD"),
+    orderId:order?.id||"",
+    orderNumber:order?.number||"",
+    name:f.get("name"),
+    number:f.get("number"),
+    size:f.get("size"),
+    school:order?.customer||""
+  });
+
+  audit("STUDENT_ADDED",f.get("name"));
+  saveDB();
+  closeModal();
+
+  if(currentPage==="students")renderStudents();
+
+  toast("Student added");
+}
+
+function deleteStudent(id){
+  if(!confirm("Delete this student record?"))return;
+  db.students=db.students.filter(x=>x.id!==id);
+  audit("STUDENT_DELETED",id);
+  saveDB();
+  renderStudents();
+}
+
+/* =========================================================
+   PRODUCTS
+   ========================================================= */
+
+function pagesProducts(){
+  document.getElementById("content").innerHTML=`
+    <div class="section-head">
+      <h2>Products</h2>
+      <button class="btn" onclick="openProductForm()">+ Add Product</button>
+    </div>
+
+    <div class="card">
+      <div id="productsTable"></div>
+    </div>
+  `;
+
+  renderProducts();
+}
+
+function renderProducts(){
+  document.getElementById("productsTable").innerHTML=`
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Product</th><th>Category</th><th>Cost</th><th>Selling Price</th><th>Stock</th><th>Status</th><th>Action</th>
+        </tr></thead>
+        <tbody>
+        ${db.products.map(p=>`
+          <tr>
+            <td><strong>${esc(p.name)}</strong></td>
+            <td>${esc(p.category)}</td>
+            <td>${money(p.cost)}</td>
+            <td>${money(p.price)}</td>
+            <td>${p.stock}</td>
+            <td>
+              ${Number(p.stock)<=Number(p.minStock)
+                ?'<span class="badge orange">Low Stock</span>'
+                :'<span class="badge green">Healthy</span>'}
+            </td>
+            <td>
+              <button class="btn small danger" onclick="deleteProduct('${p.id}')">Delete</button>
+            </td>
+          </tr>
+        `).join("")}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+function openProductForm(){
+  showModal("Add Product",`
+    <form onsubmit="saveProduct(event)">
+      <div class="form-grid">
+        <div class="field">
+          <label>Product Name *</label>
+          <input name="name" required>
+        </div>
+        <div class="field">
+          <label>Category</label>
+          <input name="category" value="Apparel">
+        </div>
+        <div class="field">
+          <label>Cost Price</label>
+          <input name="cost" type="number" min="0" value="0">
+        </div>
+        <div class="field">
+          <label>Selling Price</label>
+          <input name="price" type="number" min="0" value="0">
+        </div>
+        <div class="field">
+          <label>Opening Stock</label>
+          <input name="stock" type="number" min="0" value="0">
+        </div>
+        <div class="field">
+          <label>Minimum Stock</label>
+          <input name="minStock" type="number" min="0" value="10">
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn">Save Product</button>
+      </div>
+    </form>
+  `);
+}
+
+function saveProduct(e){
+  e.preventDefault();
+  const f=new FormData(e.target);
+
+  db.products.push({
+    id:uid("PRO"),
+    name:f.get("name"),
+    category:f.get("category"),
+    cost:Number(f.get("cost")||0),
+    price:Number(f.get("price")||0),
+    stock:Number(f.get("stock")||0),
+    minStock:Number(f.get("minStock")||0)
+  });
+
+  audit("PRODUCT_CREATED",f.get("name"));
+  saveDB();
+  closeModal();
+  renderProducts();
+  toast("Product added");
+}
+
+function deleteProduct(id){
+  if(!confirm("Delete product?"))return;
+  db.products=db.products.filter(x=>x.id!==id);
+  audit("PRODUCT_DELETED",id);
+  saveDB();
+  renderProducts();
+}
+
+/* =========================================================
+   DESIGNS
+   ========================================================= */
+
+function pagesDesigns(){
+  document.getElementById("content").innerHTML=`
+    <div class="section-head">
+      <h2>Design Management</h2>
+      <button class="btn" onclick="openDesignForm()">+ New Design</button>
+    </div>
+
+    <div class="card">
+      <div id="designsTable"></div>
+    </div>
+  `;
+
+  renderDesigns();
+}
+
+function renderDesigns(){
+  document.getElementById("designsTable").innerHTML=db.designs.length?`
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Design</th><th>Order</th><th>Designer</th><th>Status</th><th>Created</th>
+        </tr></thead>
+        <tbody>
+        ${db.designs.map(d=>`
+          <tr>
+            <td><strong>${esc(d.name)}</strong></td>
+            <td>${esc(d.orderNumber)}</td>
+            <td>${esc(d.designer||"Unassigned")}</td>
+            <td>${statusBadge(d.status)}</td>
+            <td>${esc(d.date)}</td>
+          </tr>
+        `).join("")}
+        </tbody>
+      </table>
+    </div>
+  `:`<div class="empty">No designs created.</div>`;
+}
+
+function openDesignForm(){
+  showModal("Create Design",`
+    <form onsubmit="saveDesign(event)">
+      <div class="form-grid">
+        <div class="field full">
+          <label>Design Name *</label>
+          <input name="name" required>
+        </div>
+        <div class="field">
+          <label>Order</label>
+          <select name="orderId">
+            <option value="">Not linked</option>
+            ${db.orders.map(o=>`<option value="${o.id}">${esc(o.number)}</option>`).join("")}
+          </select>
+        </div>
+        <div class="field">
+          <label>Designer</label>
+          <input name="designer">
+        </div>
+        <div class="field full">
+          <label>Design Notes</label>
+          <textarea name="notes"></textarea>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn">Save Design</button>
+      </div>
+    </form>
+  `);
+}
+
+function saveDesign(e){
+  e.preventDefault();
+  const f=new FormData(e.target);
+  const order=db.orders.find(o=>o.id===f.get("orderId"));
+
+  db.designs.unshift({
+    id:uid("DES"),
+    name:f.get("name"),
+    orderId:order?.id||"",
+    orderNumber:order?.number||"",
+    designer:f.get("designer"),
+    notes:f.get("notes"),
+    status:"Designing",
+    date:today()
+  });
+
+  audit("DESIGN_CREATED",f.get("name"));
+  saveDB();
+  closeModal();
+  renderDesigns();
+  toast("Design created");
+}
+
+/* =========================================================
+   PRODUCTION
+   ========================================================= */
+
+function pagesProduction(){
+  document.getElementById("content").innerHTML=`
+    <div class="section-head">
+      <h2>Production Control Center</h2>
+      <button class="btn" onclick="openProductionForm()">+ Production Job</button>
+    </div>
+
+    <div class="card">
+      <div id="productionTable"></div>
+    </div>
+  `;
+
+  renderProduction();
+}
+
+function renderProduction(){
+  document.getElementById("productionTable").innerHTML=db.production.length?`
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Order</th><th>Product</th><th>Quantity</th><th>Completed</th><th>Progress</th><th>Status</th>
+        </tr></thead>
+        <tbody>
+        ${db.production.map(p=>{
+          const percent=p.quantity?Math.round(p.completed/p.quantity*100):0;
+
+          return `
+            <tr>
+              <td>${esc(p.orderNumber)}</td>
+              <td>${esc(p.product)}</td>
+              <td>${p.quantity}</td>
+              <td>${p.completed}</td>
+              <td style="min-width:140px">
+                <div class="progress"><span style="width:${percent}%"></span></div>
+                <small>${percent}%</small>
+              </td>
+              <td>${statusBadge(p.status)}</td>
+            </tr>
+          `;
+        }).join("")}
+        </tbody>
+      </table>
+    </div>
+  `:`<div class="empty">No production jobs.</div>`;
+}
+
+function openProductionForm(){
+  showModal("Create Production Job",`
+    <form onsubmit="saveProduction(event)">
+      <div class="form-grid">
+        <div class="field full">
+          <label>Order *</label>
+          <select name="orderId" required>
+            <option value="">Select order</option>
+            ${db.orders.map(o=>`
+              <option value="${o.id}">${esc(o.number)} — ${esc(o.product)}</option>
+            `).join("")}
+          </select>
+        </div>
+        <div class="field">
+          <label>Quantity</label>
+          <input name="quantity" type="number" min="1" required>
+        </div>
+        <div class="field">
+          <label>Assigned Worker</label>
+          <input name="worker">
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn">Create Job</button>
+      </div>
+    </form>
+  `);
+}
+
+function saveProduction(e){
+  e.preventDefault();
+  const f=new FormData(e.target);
+  const order=db.orders.find(o=>o.id===f.get("orderId"));
+  if(!order)return;
+
+  db.production.push({
+    id:uid("PRD"),
+    orderId:order.id,
+    orderNumber:order.number,
+    product:order.product,
+    quantity:Number(f.get("quantity")),
+    completed:0,
+    worker:f.get("worker"),
+    status:"Production",
+    createdAt:new Date().toISOString()
+  });
+
+  order.status="Production";
+
+  audit("PRODUCTION_CREATED",order.number);
+  saveDB();
+  closeModal();
+  renderProduction();
+  toast("Production job created");
+}
+
+function createProduction(orderId){
+  closeModal();
+  const order=db.orders.find(o=>o.id===orderId);
+  if(!order)return;
+
+  db.production.push({
+    id:uid("PRD"),
+    orderId:order.id,
+    orderNumber:order.number,
+    product:order.product,
+    quantity:order.quantity,
+    completed:0,
+    worker:"",
+    status:"Production",
+    createdAt:new Date().toISOString()
+  });
+
+  order.status="Production";
+
+  audit("PRODUCTION_STARTED",order.number);
+  saveDB();
+  navigate("production");
+}
+
+/* =========================================================
+   QUALITY CONTROL
+   ========================================================= */
+
+function pagesQuality(){
+  document.getElementById("content").innerHTML=`
+    <div class="section-head">
+      <h2>Quality Control</h2>
+    </div>
+
+    <div class="grid grid-2">
+
+      <div class="card">
+        <h3>QC Checklist</h3>
+        <div style="line-height:2">
+          ☐ Names correct<br>
+          ☐ Numbers correct<br>
+          ☐ Sizes correct<br>
+          ☐ Quantity correct<br>
+          ☐ Colours correct<br>
+          ☐ Logo correct<br>
+          ☐ Printing quality<br>
+          ☐ Packaging checked
+        </div>
+      </div>
+
+      <div class="card">
+        <h3>QC Records</h3>
+        ${
+          db.quality.length?
+          db.quality.map(q=>`
+            <div style="padding:10px 0;border-bottom:1px solid #eee">
+              <strong>${esc(q.orderNumber)}</strong>
+              <div>${q.result}</div>
+              <small>${esc(q.date)}</small>
+            </div>
+          `).join(""):
+          `<div class="empty">No QC records.</div>`
+        }
+      </div>
+
+    </div>
+  `;
+}
+
+/* =========================================================
+   INVENTORY
+   ========================================================= */
+
+function pagesInventory(){
+  document.getElementById("content").innerHTML=`
+    <div class="section-head">
+      <h2>Inventory</h2>
+      <button class="btn" onclick="openStockForm()">+ Stock Movement</button>
+    </div>
+
+    <div class="card">
+      <div id="inventoryTable"></div>
+    </div>
+  `;
+
+  renderInventory();
+}
+
+function renderInventory(){
+  document.getElementById("inventoryTable").innerHTML=`
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Product</th><th>Stock</th><th>Minimum</th><th>Status</th>
+        </tr></thead>
+        <tbody>
+        ${db.products.map(p=>`
+          <tr>
+            <td><strong>${esc(p.name)}</strong></td>
+            <td>${p.stock}</td>
+            <td>${p.minStock}</td>
+            <td>
+              ${p.stock<=p.minStock
+                ?'<span class="badge orange">Reorder</span>'
+                :'<span class="badge green">Available</span>'}
+            </td>
+          </tr>
+        `).join("")}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+function openStockForm(){
+  showModal("Stock Movement",`
+    <form onsubmit="saveStockMovement(event)">
+      <div class="form-grid">
+        <div class="field">
+          <label>Product</label>
+          <select name="productId">
+            ${db.products.map(p=>`<option value="${p.id}">${esc(p.name)}</option>`).join("")}
+          </select>
+        </div>
+        <div class="field">
+          <label>Movement</label>
+          <select name="type">
+            <option value="IN">Stock In</option>
+            <option value="OUT">Stock Out</option>
+            <option value="ADJUST">Adjustment</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Quantity</label>
+          <input name="quantity" type="number" min="1" required>
+        </div>
+        <div class="field">
+          <label>Reference</label>
+          <input name="reference">
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn">Save Movement</button>
+      </div>
+    </form>
+  `);
+}
+
+function saveStockMovement(e){
+  e.preventDefault();
+  const f=new FormData(e.target);
+  const p=db.products.find(x=>x.id===f.get("productId"));
+  const qty=Number(f.get("quantity"));
+
+  if(!p)return;
+
+  if(f.get("type")==="IN")p.stock+=qty;
+  if(f.get("type")==="OUT")p.stock=Math.max(0,p.stock-qty);
+  if(f.get("type")==="ADJUST")p.stock=qty;
+
+  db.inventory.unshift({
+    id:uid("INV"),
+    productId:p.id,
+    product:p.name,
+    type:f.get("type"),
+    quantity:qty,
+    reference:f.get("reference"),
+    date:today()
+  });
+
+  audit("INVENTORY_MOVEMENT",`${p.name} ${f.get("type")} ${qty}`);
+  saveDB();
+  closeModal();
+  renderInventory();
+  toast("Inventory updated");
+}
+
+/* =========================================================
+   PAYMENTS
+   ========================================================= */
+
+function pagesPayments(){
+  document.getElementById("content").innerHTML=`
+    <div class="section-head">
+      <h2>Payments</h2>
+      <button class="btn" onclick="openPaymentForm()">+ Record Payment</button>
+    </div>
+
+    <div class="card">
+      <div id="paymentsTable"></div>
+    </div>
+  `;
+
+  renderPayments();
+}
+
+function renderPayments(){
+  document.getElementById("paymentsTable").innerHTML=db.payments.length?`
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Date</th><th>Order</th><th>Customer</th><th>Amount</th><th>Method</th><th>Reference</th>
+        </tr></thead>
+        <tbody>
+        ${db.payments.map(p=>`
+          <tr>
+            <td>${esc(p.date)}</td>
+            <td>${esc(p.orderNumber)}</td>
+            <td>${esc(p.customer)}</td>
+            <td><strong>${money(p.amount)}</strong></td>
+            <td>${esc(p.method)}</td>
+            <td>${esc(p.reference)}</td>
+          </tr>
+        `).join("")}
+        </tbody>
+      </table>
+    </div>
+  `:`<div class="empty">No payments recorded.</div>`;
+}
+
+function openPaymentForm(orderId=""){
+  showModal("Record Payment",`
+    <form onsubmit="savePayment(event)">
+      <div class="form-grid">
+        <div class="field full">
+          <label>Order</label>
+          <select name="orderId" required>
+            <option value="">Select order</option>
+            ${db.orders.map(o=>`
+              <option value="${o.id}" ${o.id===orderId?"selected":""}>
+                ${esc(o.number)} — Balance ${money(Math.max(0,o.total-o.paid))}
+              </option>
+            `).join("")}
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Amount</label>
+          <input name="amount" type="number" min="0" required>
+        </div>
+
+        <div class="field">
+          <label>Method</label>
+          <select name="method">
+            <option>Cash</option>
+            <option>Bank Transfer</option>
+            <option>POS</option>
+            <option>Mobile Money</option>
+            <option>Other</option>
+          </select>
+        </div>
+
+        <div class="field">
+          <label>Reference</label>
+          <input name="reference">
+        </div>
+
+        <div class="field">
+          <label>Date</label>
+          <input name="date" type="date" value="${today()}">
+        </div>
+      </div>
+
+      <div class="form-actions">
+        <button class="btn">Save Payment</button>
+      </div>
+    </form>
+  `);
+}
+
+function savePayment(e){
+  e.preventDefault();
+  const f=new FormData(e.target);
+  const order=db.orders.find(o=>o.id===f.get("orderId"));
+  const amount=Number(f.get("amount"));
+
+  if(!order||amount<=0)return;
+
+  const balance=Math.max(0,order.total-order.paid);
+  const actual=Math.min(amount,balance);
+
+  order.paid+=actual;
+
+  db.payments.unshift({
+    id:uid("PAY"),
+    orderId:order.id,
+    orderNumber:order.number,
+    customerId:order.customerId,
+    customer:order.customer,
+    amount:actual,
+    method:f.get("method"),
+    reference:f.get("reference"),
+    date:f.get("date"),
+    note:""
+  });
+
+  audit("PAYMENT_RECEIVED",`${money(actual)} for ${order.number}`);
+  saveDB();
+  closeModal();
+
+  if(currentPage==="payments")renderPayments();
+  toast("Payment recorded");
+}
+
+/* =========================================================
+   EXPENSES
+   ========================================================= */
+
+function pagesExpenses(){
+  const total=db.expenses.reduce((s,e)=>s+Number(e.amount||0),0);
+
+  document.getElementById("content").innerHTML=`
+    <div class="section-head">
+      <div>
+        <h2>Expenses</h2>
+        <div class="kpi-note">Total recorded: ${money(total)}</div>
+      </div>
+      <button class="btn" onclick="openExpenseForm()">+ Add Expense</button>
+    </div>
+
+    <div class="card">
+      <div id="expensesTable"></div>
+    </div>
+  `;
+
+  renderExpenses();
+}
+
+function renderExpenses(){
+  document.getElementById("expensesTable").innerHTML=db.expenses.length?`
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Date</th><th>Category</th><th>Description</th><th>Amount</th><th>Action</th>
+        </tr></thead>
+        <tbody>
+        ${db.expenses.map(e=>`
+          <tr>
+            <td>${esc(e.date)}</td>
+            <td>${esc(e.category)}</td>
+            <td>${esc(e.description)}</td>
+            <td><strong>${money(e.amount)}</strong></td>
+            <td>
+              <button class="btn small danger" onclick="deleteExpense('${e.id}')">Delete</button>
+            </td>
+          </tr>
+        `).join("")}
+        </tbody>
+      </table>
+    </div>
+  `:`<div class="empty">No expenses recorded.</div>`;
+}
+
+function openExpenseForm(){
+  showModal("Add Expense",`
+    <form onsubmit="saveExpense(event)">
+      <div class="form-grid">
+        <div class="field">
+          <label>Category</label>
+          <select name="category">
+            <option>Materials</option>
+            <option>Printing</option>
+            <option>Transport</option>
+            <option>Staff</option>
+            <option>Utilities</option>
+            <option>Marketing</option>
+            <option>Maintenance</option>
+            <option>Other</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Amount</label>
+          <input name="amount" type="number" min="0" required>
+        </div>
+        <div class="field full">
+          <label>Description</label>
+          <input name="description">
+        </div>
+        <div class="field">
+          <label>Date</label>
+          <input name="date" type="date" value="${today()}">
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn">Save Expense</button>
+      </div>
+    </form>
+  `);
+}
+
+function saveExpense(e){
+  e.preventDefault();
+  const f=new FormData(e.target);
+
+  db.expenses.unshift({
+    id:uid("EXP"),
+    category:f.get("category"),
+    amount:Number(f.get("amount")),
+    description:f.get("description"),
+    date:f.get("date")
+  });
+
+  audit("EXPENSE_ADDED",`${f.get("description")} ${money(f.get("amount"))}`);
+  saveDB();
+  closeModal();
+  renderExpenses();
+  toast("Expense saved");
+}
+
+function deleteExpense(id){
+  if(!confirm("Delete expense?"))return;
+  db.expenses=db.expenses.filter(x=>x.id!==id);
+  audit("EXPENSE_DELETED",id);
+  saveDB();
+  renderExpenses();
+}
+
+/* =========================================================
+   DELIVERIES
+   ========================================================= */
+
+function pagesDeliveries(){
+  document.getElementById("content").innerHTML=`
+    <div class="section-head">
+      <h2>Deliveries</h2>
+      <button class="btn" onclick="openDeliveryForm()">+ New Delivery</button>
+    </div>
+
+    <div class="card">
+      <div id="deliveriesTable"></div>
+    </div>
+  `;
+
+  renderDeliveries();
+}
+
+function renderDeliveries(){
+  document.getElementById("deliveriesTable").innerHTML=db.deliveries.length?`
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Order</th><th>Customer</th><th>Date</th><th>Address</th><th>Status</th>
+        </tr></thead>
+        <tbody>
+        ${db.deliveries.map(d=>`
+          <tr>
+            <td>${esc(d.orderNumber)}</td>
+            <td>${esc(d.customer)}</td>
+            <td>${esc(d.date)}</td>
+            <td>${esc(d.address)}</td>
+            <td>${statusBadge(d.status)}</td>
+          </tr>
+        `).join("")}
+        </tbody>
+      </table>
+    </div>
+  `:`<div class="empty">No deliveries recorded.</div>`;
+}
+
+function openDeliveryForm(){
+  showModal("Create Delivery",`
+    <form onsubmit="saveDelivery(event)">
+      <div class="form-grid">
+        <div class="field full">
+          <label>Order</label>
+          <select name="orderId" required>
+            ${db.orders.map(o=>`
+              <option value="${o.id}">${esc(o.number)} — ${esc(o.customer)}</option>
+            `).join("")}
+          </select>
+        </div>
+        <div class="field">
+          <label>Delivery Date</label>
+          <input name="date" type="date" value="${today()}">
+        </div>
+        <div class="field">
+          <label>Delivery Person</label>
+          <input name="person">
+        </div>
+        <div class="field full">
+          <label>Address</label>
+          <textarea name="address"></textarea>
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn">Save Delivery</button>
+      </div>
+    </form>
+  `);
+}
+
+function saveDelivery(e){
+  e.preventDefault();
+  const f=new FormData(e.target);
+  const order=db.orders.find(o=>o.id===f.get("orderId"));
+  if(!order)return;
+
+  db.deliveries.unshift({
+    id:uid("DEL"),
+    orderId:order.id,
+    orderNumber:order.number,
+    customer:order.customer,
+    date:f.get("date"),
+    person:f.get("person"),
+    address:f.get("address"),
+    status:"Pending"
+  });
+
+  audit("DELIVERY_CREATED",order.number);
+  saveDB();
+  closeModal();
+  renderDeliveries();
+  toast("Delivery created");
+}
+
+/* =========================================================
+   STAFF
+   ========================================================= */
+
+function pagesStaff(){
+  document.getElementById("content").innerHTML=`
+    <div class="section-head">
+      <h2>Staff & Permissions</h2>
+      <button class="btn" onclick="openStaffForm()">+ Add Staff</button>
+    </div>
+
+    <div class="card">
+      <div id="staffTable"></div>
+    </div>
+  `;
+
+  renderStaff();
+}
+
+function renderStaff(){
+  document.getElementById("staffTable").innerHTML=`
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Name</th><th>Role</th><th>Phone</th><th>Status</th><th>Action</th>
+        </tr></thead>
+        <tbody>
+        ${db.staff.map(s=>`
+          <tr>
+            <td><strong>${esc(s.name)}</strong></td>
+            <td>${esc(s.role)}</td>
+            <td>${esc(s.phone)}</td>
+            <td><span class="badge green">${esc(s.status)}</span></td>
+            <td>
+              ${s.role!=="Admin"
+                ?`<button class="btn small danger" onclick="deleteStaff('${s.id}')">Delete</button>`
+                :`<span class="badge gray">Protected</span>`}
+            </td>
+          </tr>
+        `).join("")}
+        </tbody>
+      </table>
+    </div>
+  `;
+}
+
+function openStaffForm(){
+  showModal("Add Staff Member",`
+    <form onsubmit="saveStaff(event)">
+      <div class="form-grid">
+        <div class="field">
+          <label>Full Name</label>
+          <input name="name" required>
+        </div>
+        <div class="field">
+          <label>Role</label>
+          <select name="role">
+            <option>Manager</option>
+            <option>Designer</option>
+            <option>Printer</option>
+            <option>Production Worker</option>
+            <option>Sales</option>
+            <option>Accountant</option>
+            <option>Delivery</option>
+            <option>Worker</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Phone</label>
+          <input name="phone">
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn">Add Staff</button>
+      </div>
+    </form>
+  `);
+}
+
+function saveStaff(e){
+  e.preventDefault();
+  const f=new FormData(e.target);
+
+  db.staff.push({
+    id:uid("ST"),
+    name:f.get("name"),
+    role:f.get("role"),
+    phone:f.get("phone"),
+    status:"Active"
+  });
+
+  audit("STAFF_CREATED",f.get("name"));
+  saveDB();
+  closeModal();
+  renderStaff();
+  toast("Staff member added");
+}
+
+function deleteStaff(id){
+  if(!confirm("Delete staff member?"))return;
+  db.staff=db.staff.filter(x=>x.id!==id);
+  audit("STAFF_DELETED",id);
+  saveDB();
+  renderStaff();
+}
+
+/* =========================================================
+   TASKS
+   ========================================================= */
+
+function pagesTasks(){
+  document.getElementById("content").innerHTML=`
+    <div class="section-head">
+      <h2>Staff Tasks</h2>
+      <button class="btn" onclick="openTaskForm()">+ Assign Task</button>
+    </div>
+
+    <div class="card">
+      <div id="tasksTable"></div>
+    </div>
+  `;
+
+  renderTasks();
+}
+
+function renderTasks(){
+  document.getElementById("tasksTable").innerHTML=db.tasks.length?`
+    <div class="table-wrap">
+      <table>
+        <thead><tr>
+          <th>Task</th><th>Assigned To</th><th>Priority</th><th>Deadline</th><th>Status</th>
+        </tr></thead>
+        <tbody>
+        ${db.tasks.map(t=>`
+          <tr>
+            <td>${esc(t.title)}</td>
+            <td>${esc(t.assignee)}</td>
+            <td>${esc(t.priority)}</td>
+            <td>${esc(t.deadline)}</td>
+            <td>${statusBadge(t.status)}</td>
+          </tr>
+        `).join("")}
+        </tbody>
+      </table>
+    </div>
+  `:`<div class="empty">No tasks assigned.</div>`;
+}
+
+function openTaskForm(){
+  showModal("Assign Task",`
+    <form onsubmit="saveTask(event)">
+      <div class="form-grid">
+        <div class="field full">
+          <label>Task</label>
+          <input name="title" required>
+        </div>
+        <div class="field">
+          <label>Staff</label>
+          <select name="staffId">
+            ${db.staff.map(s=>`<option value="${s.id}">${esc(s.name)}</option>`).join("")}
+          </select>
+        </div>
+        <div class="field">
+          <label>Priority</label>
+          <select name="priority">
+            <option>Normal</option>
+            <option>High</option>
+            <option>Urgent</option>
+          </select>
+        </div>
+        <div class="field">
+          <label>Deadline</label>
+          <input name="deadline" type="date">
+        </div>
+      </div>
+      <div class="form-actions">
+        <button class="btn">Assign Task</button>
+      </div>
+    </form>
+  `);
+}
+
+function saveTask(e){
+  e.preventDefault();
+  const f=new FormData(e.target);
+  const staff=db.staff.find(s=>s.id===f.get("staffId"));
+
+  db.tasks.unshift({
+    id:uid("TSK"),
+    title:f.get("title"),
+    assignee:staff?.name||"",
+    staffId:staff?.id||"",
+    priority:f.get("priority"),
+    deadline:f.get("deadline"),
+    status:"Pending"
+  });
+
+  audit("TASK_ASSIGNED",f.get("title"));
+  saveDB();
+  closeModal();
+  renderTasks();
+  toast("Task assigned");
+}
+
+/* =========================================================
+   REPORTS
+   ========================================================= */
+
+function pagesReports(){
+  const s=dashboardStats();
+
+  const productSales={};
+
+  db.orders.forEach(o=>{
+    productSales[o.product]=(productSales[o.product]||0)+Number(o.quantity||0);
+  });
+
+  document.getElementById("content").innerHTML=`
+    <div class="section-head">
+      <h2>Reports & Analytics</h2>
+      <button class="btn secondary" onclick="window.print()">Print Report</button>
+    </div>
+
+    <div class="stats">
+      ${stat("Revenue",money(s.revenue),"₦")}
+      ${stat("Expenses",money(s.expenses),"EXP")}
+      ${stat("Profit",money(s.profit),"P")}
+      ${stat("Outstanding",money(s.outstanding),"BAL")}
+      ${stat("Customers",db.customers.length,"CUS")}
+    </div>
+
+    <div style="height:18px"></div>
+
+    <div class="grid grid-2">
+
+      <div class="card">
+        <h3>Order Status</h3>
+        ${["Pending","Designing","Printing","Production","QC","Ready","Delivered","Cancelled"].map(status=>`
+          <div style="margin-bottom:13px">
+            <div style="display:flex;justify-content:space-between;font-size:12px">
+              <span>${status}</span>
+              <strong>${db.orders.filter(o=>o.status===status).length}</strong>
+            </div>
+          </div>
+        `).join("")}
+      </div>
+
+      <div class="card">
+        <h3>Products Ordered</h3>
+        ${
+          Object.keys(productSales).length
+          ?Object.entries(productSales).map(([name,qty])=>`
+            <div style="margin-bottom:15px">
+              <div style="display:flex;justify-content:space-between;font-size:12px">
+                <span>${esc(name)}</span><strong>${qty}</strong>
+              </div>
+              <div class="progress" style="margin-top:5px">
+                <span style="width:${Math.min(100,qty/(Math.max(...Object.values(productSales))||1)*100)}%"></span>
+              </div>
+            </div>
+          `).join("")
+          :`<div class="empty">No order data.</div>`
+        }
+      </div>
+
+    </div>
+  `;
+}
+
+/* =========================================================
+   AUDIT
+   ========================================================= */
+
+function pagesAudit(){
+  document.getElementById("content").innerHTML=`
+    <div class="section-head">
+      <h2>Audit History</h2>
+      <button class="btn danger small" onclick="clearAudit()">Clear History</button>
+    </div>
+
+    <div class="card">
+      <div class="timeline">
+        ${
+          db.audit.length?
+          db.audit.map(a=>`
+            <div class="timeline-item">
+              <strong>${esc(a.action)}</strong>
+              <div style="font-size:12px">${esc(a.details)}</div>
+              <small>${new Date(a.date).toLocaleString()}</small>
+            </div>
+          `).join("")
+          :`<div class="empty">No audit records.</div>`
+        }
+      </div>
+    </div>
+  `;
+}
+
+function clearAudit(){
+  if(!confirm("Clear audit history?"))return;
+  db.audit=[];
+  saveDB();
+  renderAudit();
+}
+
+function renderAudit(){
+  pagesAudit();
+}
+
+/* =========================================================
+   SETTINGS
+   ========================================================= */
+
+function pagesSettings(){
+  document.getElementById("content").innerHTML=`
+    <div class="section-head">
+      <h2>Business Settings</h2>
+    </div>
+
+    <div class="grid grid-2">
+
+      <div class="card">
+        <h3>Business Profile</h3>
+
+        <form onsubmit="saveSettings(event)">
+          <div class="form-grid">
+
+            <div class="field full">
+              <label>Business Name</label>
+              <input name="name" value="${esc(db.business.name)}">
+            </div>
+
+            <div class="field">
+              <label>Phone</label>
+              <input name="phone" value="${esc(db.business.phone)}">
+            </div>
+
+            <div class="field">
+              <label>Email</label>
+              <input name="email" value="${esc(db.business.email)}">
+            </div>
+
+            <div class="field">
+              <label>Currency</label>
+              <input name="currency" value="${esc(db.business.currency)}">
+            </div>
+
+            <div class="field">
+              <label>Order Prefix</label>
+              <input name="prefix" value="${esc(db.settings.numberingPrefix)}">
+            </div>
+
+            <div class="field full">
+              <label>Address</label>
+              <textarea name="address">${esc(db.business.address)}</textarea>
+            </div>
+
+          </div>
+
+          <div class="form-actions">
+            <button class="btn">Save Settings</button>
+          </div>
+        </form>
+      </div>
+
+      <div class="card">
+        <h3>Database Management</h3>
+
+        <button class="btn secondary" onclick="backupDB()" style="width:100%;margin-bottom:10px">
+          Download Backup
+        </button>
+
+        <button class="btn secondary" onclick="document.getElementById('restoreInput').click()" style="width:100%;margin-bottom:10px">
+          Restore Backup
+        </button>
+
+        <input id="restoreInput" type="file" accept=".json" hidden onchange="restoreDB(event)">
+
+        <button class="btn warning" onclick="loadDemoData()" style="width:100%;margin-bottom:10px">
+          Load Demo Data
+        </button>
+
+        <button class="btn danger" onclick="resetDatabase()" style="width:100%">
+          Reset Database
+        </button>
+
+        <div style="margin-top:15px;font-size:11px;color:#64748b">
+          Prototype database: browser localStorage.
+          Production V20 should use secure cloud authentication and PostgreSQL.
+        </div>
+      </div>
+
+    </div>
+  `;
+}
+
+function saveSettings(e){
+  e.preventDefault();
+  const f=new FormData(e.target);
+
+  db.business.name=f.get("name");
+  db.business.phone=f.get("phone");
+  db.business.email=f.get("email");
+  db.business.currency=f.get("currency")||"₦";
+  db.business.address=f.get("address");
+  db.settings.numberingPrefix=f.get("prefix")||"NSE";
+
+  audit("SETTINGS_UPDATED","Business settings updated");
+  saveDB();
+  toast("Settings saved");
+}
+
+function backupDB(){
+  const blob=new Blob([JSON.stringify(db,null,2)],{type:"application/json"});
+  const url=URL.createObjectURL(blob);
+  const a=document.createElement("a");
+  a.href=url;
+  a.download=`nura-sani-v20-backup-${today()}.json`;
+  a.click();
+  URL.revokeObjectURL(url);
+  audit("BACKUP_CREATED","Database backup downloaded");
+}
+
+function restoreDB(e){
+  const file=e.target.files[0];
+  if(!file)return;
+
+  const reader=new FileReader();
+
+  reader.onload=function(){
+    try{
+      const imported=JSON.parse(reader.result);
+
+      if(!imported.version || !Array.isArray(imported.orders)){
+        throw new Error("Invalid database format");
+      }
+
+      db=imported;
+      saveDB();
+      audit("DATABASE_RESTORED","Backup restored");
+      toast("Database restored");
+      navigate(currentPage);
+
+    }catch(err){
+      toast("Invalid backup file");
+    }
+  };
+
+  reader.readAsText(file);
+}
+
+function resetDatabase(){
+  if(!confirm("This will delete all local data. Continue?"))return;
+
+  db=clone(defaultDB);
+  saveDB();
+  toast("Database reset");
+  navigate("dashboard");
+}
+
+function loadDemoData(){
+  if(!confirm("Add demonstration data to the database?"))return;
+
+  const c={
+    id:uid("CUS"),
+    name:"Demo School Committee",
+    type:"School",
+    phone:"08000000000",
+    email:"",
+    address:"Sokoto"
+  };
+
+  db.customers.unshift(c);
+
+  const order={
+    id:uid("ORD"),
+    number:nextOrderNumber(),
+    customerId:c.id,
+    customer:c.name,
+    productId:"P001",
+    product:"Jersey",
+    quantity:50,
+    unitPrice:8500,
+    discount:0,
+    total:425000,
+    paid:200000,
+    deadline:today(),
+    priority:"High",
+    notes:"Demo order",
+    status:"Production",
+    createdAt:new Date().toISOString()
+  };
+
+  db.orders.unshift(order);
+
+  db.payments.unshift({
+    id:uid("PAY"),
+    orderId:order.id,
+    orderNumber:order.number,
+    customerId:c.id,
+    customer:c.name,
+    amount:200000,
+    method:"Bank Transfer",
+    reference:"DEMO-001",
+    date:today()
+  });
+
+  db.production.unshift({
+    id:uid("PRD"),
+    orderId:order.id,
+    orderNumber:order.number,
+    product:"Jersey",
+    quantity:50,
+    completed:32,
+    worker:"Demo Worker",
+    status:"Production",
+    createdAt:new Date().toISOString()
+  });
+
+  audit("DEMO_DATA_LOADED","Sample business records added");
+  saveDB();
+  navigate("dashboard");
+  toast("Demo data loaded");
+}
+
+/* =========================================================
+   ARCHITECTURE
+   ========================================================= */
+
+function pagesArchitecture(){
+  document.getElementById("content").innerHTML=`
+    <div class="section-head">
+      <div>
+        <h2>V20 Architecture</h2>
+        <div class="kpi-note">Foundation release 20.0.1</div>
+      </div>
+    </div>
+
+    <div class="grid grid-3">
+
+      <div class="card">
+        <h3>Current Prototype</h3>
+        <p>HTML</p>
+        <p>CSS</p>
+        <p>JavaScript</p>
+        <p>Browser local database</p>
+        <span class="badge orange">PROTOTYPE</span>
+      </div>
+
+      <div class="card">
+        <h3>Production Backend</h3>
+        <p>Authentication</p>
+        <p>PostgreSQL</p>
+        <p>Secure API</p>
+        <p>Cloud storage</p>
+        <p>Role-based access</p>
+        <span class="badge blue">PLANNED</span>
+      </div>
+
+      <div class="card">
+        <h3>Future Platform</h3>
+        <p>Multi-business SaaS</p>
+        <p>Customer portal</p>
+        <p>Worker portal</p>
+        <p>Mobile applications</p>
+        <p>AI assistant</p>
+        <span class="badge gray">ROADMAP</span>
+      </div>
+
+    </div>
+
+    <div style="height:18px"></div>
+
+    <div class="card">
+      <h3>Target Architecture</h3>
+
+      <pre style="
+        background:#0f172a;
+        color:#d1fae5;
+        padding:20px;
+        border-radius:12px;
+        overflow:auto;
+        font-size:12px;
+      ">NURA SANI V20
+│
+├── Web Application
+├── Mobile Applications
+├── Customer Portal
+├── Worker Portal
+│
+├── Authentication
+├── API / Business Logic
+│
+├── PostgreSQL Database
+├── Secure File Storage
+├── Audit System
+├── Notification Engine
+├── Analytics Engine
+└── AI Assistant</pre>
+    </div>
+
+    <div style="height:18px"></div>
+
+    <div class="card">
+      <h3>Important Security Note</h3>
+      <p style="color:#475569">
+        This V20.0 Foundation is a browser prototype. It does not claim to
+        provide production-grade authentication or cloud security yet.
+        The production release must move authentication, authorization,
+        sensitive business data and database operations to a secure backend.
+      </p>
+    </div>
+  `;
+}
+
+/* =========================================================
+   MODALS
+   ========================================================= */
+
+function showModal(title,body){
+  document.getElementById("modalTitle").textContent=title;
+  document.getElementById("modalBody").innerHTML=body;
+  document.getElementById("modal").classList.add("show");
+}
+
+function closeModal(){
+  document.getElementById("modal").classList.remove("show");
+}
+
+/* =========================================================
+   PAGE MAP
+   ========================================================= */
+
+const pages={
+  dashboard:pagesDashboard,
+  customers:pagesCustomers,
+  schools:pagesSchools,
+  orders:pagesOrders,
+  students:pagesStudents,
+  products:pagesProducts,
+  designs:pagesDesigns,
+  production:pagesProduction,
+  quality:pagesQuality,
+  inventory:pagesInventory,
+  deliveries:pagesDeliveries,
+  payments:pagesPayments,
+  expenses:pagesExpenses,
+  reports:pagesReports,
+  staff:pagesStaff,
+  tasks:pagesTasks,
+  audit:pagesAudit,
+  settings:pagesSettings,
+  architecture:pagesArchitecture
+};
+
+/* =========================================================
+   START
+   ========================================================= */
+
+navigate("dashboard");
+
+</script>
+</body>
+</html>
